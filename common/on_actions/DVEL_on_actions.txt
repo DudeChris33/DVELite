@@ -1,0 +1,82 @@
+#When adding effects directly in on_actions always consider if it would be best to do so through a scripted effect. on_actions with a lot of script in them are harder to get an overview of.
+
+on_monthly_pulse = {
+	events = {
+		DVEL_events.200
+	}
+}
+
+on_yearly_pulse = {
+	events = {
+		DVEL_events.100
+		DVEL_events.201
+	}
+}
+
+# on_bi_yearly_pulse_3 = {
+# 	events = {
+# 		DVEL_events.300
+# 	}
+# }
+
+# on_five_year_pulse_3 = {
+# 	events = {
+# 		DVEL_events.201
+# 	}
+# }
+
+# # country
+# on_bankruptcy = {
+# 	every_owned_province = {
+# 		add_devastastion = -10
+# 	}
+# }
+
+# province, general conversion through effects
+on_province_culture_changed = {
+	if = {
+		limit = { NOT = { owner = { is_migratory_tribe = yes } } }
+		DVEL_remove_development = yes
+		DVEL_remove_development = yes
+		DVEL_remove_development = yes
+		add_province_modifier = {
+			name = DVEL_recently_converted
+			duration = 1800
+		}
+	}
+}
+
+#ROOT - scorching country, FROM - scorched province
+on_scorch_earth = {
+	if = {
+		limit = { NOT = { owner = { is_migratory_tribe = yes } } }
+		FROM = {
+			add_treasury = -5
+			owner = { add_war_exhaustion = 0.1 }
+			if = {
+				limit = {
+					OR = {
+						is_capital = yes
+						development = 25
+					}
+				}
+				owner = {
+					add_stability = -1
+					add_war_exhaustion = 0.1
+				}
+			}
+			add_devastation = 25
+			add_prosperity = -20
+			DVEL_remove_development = yes
+			DVEL_remove_development = yes
+			DVEL_remove_development = yes
+		}
+		ROOT = {
+			add_treasury = 5
+			random_owned_province = {
+				limit = { is_state = yes }
+				DVEL_add_development = yes
+			}
+		}
+	}
+}

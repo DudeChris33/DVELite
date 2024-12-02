@@ -1,0 +1,117 @@
+DVEL_is_right_culture = {
+	OR = {
+		has_owner_culture = yes
+		AND = {
+			culture_group = owner
+			OR = {
+				# has_cultural_union = yes
+				has_owner_accepted_culture = yes
+				NOT = { has_global_flag = DVEL_spread_to_same_group_flag }
+			}
+		}
+		AND = {
+			NOT = { culture_group = owner }
+			has_owner_accepted_culture = yes
+			NOT = { has_global_flag = DVEL_spread_to_accepted_flag }
+		}
+	}
+}
+
+DVEL_is_right_government = {
+	AND = {
+		OR = {
+			government = monarchy
+			government = theocracy
+			government = republic
+		}
+		NOT = {
+			government = native
+			government = tribal
+			DVEL_is_primitive = yes
+			is_migratory_tribe = yes
+		}
+	}
+}
+
+DVEL_is_primitive = {
+	OR = {
+		primitives = yes
+		is_primitive = yes
+
+		technology_group = east_african
+		technology_group = central_african
+		# technology_group = nomad_group
+		technology_group = sub_saharan
+		technology_group = north_american
+		technology_group = mesoamerican
+		technology_group = south_american
+		technology_group = andean
+		technology_group = aboriginal_tech
+		technology_group = polynesian_tech
+		technology_group = high_american
+
+		AND = {
+			has_global_flag = DVEL_Anb_flag
+			OR = {
+				technology_group = tech_west_sarhaly
+				technology_group = tech_east_sarhaly
+				technology_group = tech_south_sarhaly
+				technology_group = tech_noruin
+				technology_group = tech_south_aelantiri
+				technology_group = tech_bharbhen
+				technology_group = tech_inyaswarosa
+				technology_group = tech_harafic
+				technology_group = tech_baashidi
+				
+				technology_group = tech_kobold
+				technology_group = tech_darkscale_kobold
+				technology_group = tech_east_kobold
+				
+				technology_group = tech_firanyan_harpy
+				technology_group = tech_siadunan_harpy
+				technology_group = tech_pezarangi_harpy
+				technology_group = tech_nzeri_harpy
+				
+				technology_group = tech_orcish
+				technology_group = tech_black_orcish
+				technology_group = tech_east_orcish
+				technology_group = tech_centaur
+				
+				technology_group = tech_gnollish
+				technology_group = tech_goblin
+				technology_group = tech_exodus_goblin
+				technology_group = tech_cave_goblin
+				technology_group = tech_forest_goblin
+				technology_group = tech_east_cave_goblin
+
+				technology_group = tech_troll
+				technology_group = tech_ogre
+				technology_group = tech_eastern_ogre
+				technology_group = tech_swamp_troll
+			}
+		}
+	}
+}
+
+# DVEL_sinicization_target = {
+# 	OR = {
+# 		culture_group = korean_g
+# 		culture_group = tibetan_group
+# 		culture_group = altaic
+# 		culture = manchu
+# 		culture = mongol
+# 		culture = vietnamese
+# 		culture = zhuang
+# 	}
+# }
+
+# num_of_provinces_developed = {	# override
+	# custom_trigger_tooltip = {
+	# 	tooltip = has_developed_at_least_$amount$_provinces
+	# 	check_variable = {
+	# 		which = num_of_times_developed
+	# 		value = $amount$
+	# 	}
+	# }
+	
+# }

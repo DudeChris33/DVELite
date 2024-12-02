@@ -1,0 +1,126 @@
+#{ Development
+	DVEL_player_development_window = {
+		development_cost_modifier = -9
+	}
+
+	# DVEL_peacetime_reconstruction = {
+	# 	global_monthly_devastation = -0.07
+	# 	global_supply_limit_modifier = 1
+	# }
+
+	DVEL_no_manual_dev_1 = {
+		development_cost_modifier = 9
+		country_admin_power = -1
+		country_diplomatic_power = -1
+		country_military_power = -1
+		# advisor_cost = 0.5
+	}
+	DVEL_no_manual_dev_2 = {
+		development_cost_modifier = 9
+		country_admin_power = -2
+		country_diplomatic_power = -2
+		country_military_power = -2
+		advisor_cost = 0.5
+	}
+	DVEL_no_manual_dev_3 = {
+		development_cost_modifier = 9
+		country_admin_power = -3
+		country_diplomatic_power = -3
+		country_military_power = -3
+		advisor_cost = 1
+	}
+	
+	DVEL_ai_diet = {
+		all_estate_loyalty_equilibrium = 7.5
+	}
+
+	DVEL_subject_growth_limiter = {
+		development_cost = 0.1
+	}
+
+	DVEL_colony_growth_limiter = {
+		development_cost = 0.5
+	}
+
+	DVEL_primitives = {
+		development_cost = 0.5
+	}
+
+	DVEL_raided = {
+		local_tax_modifier = -0.25
+		local_development_cost = 0.1
+	}
+
+	DVEL_recently_converted = {
+		local_culture_conversion_cost = 3
+	}
+#}
+
+#{ Ages
+	DVEL_et_classical_age_modifier = {
+		development_cost = -0.8 # from 2.2 and 2
+	}
+	DVEL_et_age_of_migrations_modifier = {
+		development_cost = -0.75 # from 1.75
+	}
+	DVEL_et_dark_age_modifier = {
+		development_cost = -0.7 #from 1.5
+	}
+	DVEL_et_feudal_age_modifier = {
+		development_cost = -0.65 #from 1.25
+	}
+	DVEL_et_high_middle_ages_modifier = {
+		development_cost = -0.6 # from 1.0
+	}
+	DVEL_et_late_middle_ages_modifier = {
+		development_cost = -0.55 # from 0.75
+	}
+
+	# DVEL_toe_medieval_age_modifier = {
+	# 	development_cost = -0.7 # from 1.5
+	# }
+	# DVEL_toe_discovery_age_modifier = {
+	# 	development_cost = -0.4 # from 1
+	# }
+	# DVEL_toe_reformation_age_modifier = {
+	# 	development_cost = -0.1 # from 0.5
+	# }
+	# DVEL_toe_absolutism_age_modifier = {
+	# 	development_cost = 0.05 # from 0.15
+	# }
+	# DVEL_toe_revolution_age_modifier = {
+	# 	development_cost = 0.15 # from -0.15
+	# }
+#}
+
+#{ Natural Disasters
+	# et_plague_tribal = {
+	# 	tribal_development_growth = -0.5
+	# }
+
+	# et_famine_tribal = {
+	# 	tribal_development_growth = -0.5
+	# }
+
+	# et_drought_tribal = {
+	# 	tribal_development_growth = -0.5
+	# }
+
+	# et_plague = {
+	# 	local_development_cost = 0.5
+	# 	local_manpower_modifier = -0.5
+	# 	garrison_growth = -0.5
+	# }
+
+	# et_famine = {
+	# 	local_development_cost = 0.5
+	# 	local_manpower_modifier = -0.5
+	# 	garrison_growth = -0.5
+	# }
+
+	# et_drought = {
+	# 	local_development_cost = 0.5
+	# 	local_manpower_modifier = -0.5
+	# 	garrison_growth = -0.5
+	# }
+#}

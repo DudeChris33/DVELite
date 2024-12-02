@@ -1,0 +1,17 @@
+DVEL_peacetime_reconstruction = {
+	potential = {
+		NOT = {
+			government = native
+			is_migratory_tribe = yes
+			can_migrate = yes
+		}
+	}
+	trigger = {
+		stability = 1
+		NOT = { is_at_war = yes }
+		NOT = { has_any_disaster = yes }
+		NOT = { had_recent_war = 10 }
+	}
+	global_monthly_devastation = -0.07
+	global_supply_limit_modifier = 1
+}

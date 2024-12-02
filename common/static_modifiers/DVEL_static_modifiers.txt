@@ -1,0 +1,64 @@
+# tropical = {
+# 	local_colonial_growth = -10
+# 	supply_limit_modifier = -0.3
+# 	local_hostile_attrition = 2
+
+# 	local_development_cost = 0.1 # up from 0.05
+
+# 	picture = "climate_tropical"
+# }
+# arctic = {
+# 	local_colonial_growth = -10
+# 	supply_limit_modifier = -0.4
+# 	local_hostile_attrition = 1
+
+# 	allowed_num_of_buildings = -1
+# 	local_development_cost = 1.0 # up from 0.5
+
+# 	picture = "climate_arctic"
+# }
+# arid = {
+# 	local_colonial_growth = -10
+# 	supply_limit_modifier = -0.2
+# 	local_hostile_attrition = 1
+
+# 	local_development_cost = 0.2 # up from 0.1
+
+# 	picture = "climate_arid"
+# }
+
+blockaded = {
+	regiment_recruit_speed = 0.2
+	ship_recruit_speed = 0.2
+	local_monthly_devastation = 0.1 # down from 0.25
+	province_trade_power_modifier = -1
+}
+
+# occupied = {
+# 	local_tax_modifier = -0.5
+# 	trade_goods_size_modifier = -0.5
+# 	province_trade_power_modifier = -0.5
+# 	local_manpower_modifier = -0.5
+# 	local_sailors_modifier = -0.5
+# 	local_institution_spread = -0.1
+# 	local_monthly_devastation = 0.15 # down from 0.2
+# }
+
+under_siege = {
+	trade_goods_size_modifier = -0.25
+	province_trade_power_modifier = -0.25
+	local_institution_spread = -0.1
+	local_monthly_devastation = 0.2	# up from 0.1
+}
+
+# slaves_raided = {
+# 	picture = "raided_for_slaves"
+# }
+
+scorched_earth = {
+	local_hostile_attrition = 1 # up from 0
+	supply_limit_modifier = -0.5	# down from 0
+	local_hostile_movement_speed = -0.50
+	local_monthly_devastation = 0.25
+	local_warscore_cost_modifier = -0.05
+}
