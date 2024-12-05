@@ -256,7 +256,6 @@ country_event = { # The Big One
 	trigger = { owns = 118 }
 
 	option = {
-		# log = "DVEL_events.100"
 		every_country = {
 			limit = { DVEL_is_right_government = yes }
 			#{ country development math
@@ -446,25 +445,6 @@ country_event = { # The Big One
 					has_global_flag = DVEL_no_manual_development_flag
 				}
 				DVEL_remove_development = yes
-				if = {
-					limit = {
-						has_global_flag = DVEL_debug_mode_flag
-						check_variable = { which = amog value = 1 }
-					}
-					REB = { change_variable = { which = devRemoved value = -1 } }
-					owner = {
-						if = {
-							limit = { has_country_flag = DVEL_debug_target_flag }
-							change_variable = { which = playerNetDev value = 1 }
-						} else_if = {
-							limit = {
-								is_subject_other_than_tributary_trigger = yes
-								overlord = { has_country_flag = DVEL_debug_target_flag }
-							}
-							overlord = { change_variable = { which = subjectNetDev value = 1 } }
-						}
-					}
-				}
 				if = {
 					limit = {
 						any_neighbor_province = {
@@ -659,7 +639,6 @@ country_event = { # yearly report
 	is_triggered_only = yes
 
 	option = {
-		# log = "DVEL_events.101"
 		name = DVEL_events.101.a
 	}
 
@@ -768,7 +747,6 @@ country_event = { # monthly
 			}
 			if = {	# monthly modifiers
 				limit = { has_global_flag = DVEL_no_manual_development_flag }
-				# log = "DVEL monthly"
 				if = { limit = { NOT = { has_global_flag = DVEL_VN_flag } }
 					every_country = {
 						limit = { ai = no }
