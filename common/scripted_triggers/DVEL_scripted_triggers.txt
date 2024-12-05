@@ -24,12 +24,10 @@ DVEL_is_right_government = {
 			government = theocracy
 			government = republic
 		}
-		NOT = {
-			government = native
-			government = tribal
-			DVEL_is_primitive = yes
-			is_migratory_tribe = yes
-		}
+		NOT = { government = native }
+		NOT = { government = tribal }
+		NOT = { DVEL_is_primitive = yes }
+		NOT = { is_migratory_tribe = yes }
 	}
 }
 
@@ -40,7 +38,6 @@ DVEL_is_primitive = {
 
 		technology_group = east_african
 		technology_group = central_african
-		# technology_group = nomad_group
 		technology_group = sub_saharan
 		technology_group = north_american
 		technology_group = mesoamerican
@@ -113,5 +110,4 @@ DVEL_is_primitive = {
 	# 		value = $amount$
 	# 	}
 	# }
-	
 # }

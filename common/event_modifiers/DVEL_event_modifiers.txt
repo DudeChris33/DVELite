@@ -31,7 +31,7 @@
 	}
 	
 	DVEL_ai_diet = {
-		all_estate_loyalty_equilibrium = 7.5
+		all_estate_loyalty_equilibrium = 0.75
 	}
 
 	DVEL_subject_growth_limiter = {

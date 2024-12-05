@@ -256,7 +256,7 @@ country_event = { # The Big One
 	trigger = { owns = 118 }
 
 	option = {
-		log = "DVEL_events.100"
+		# log = "DVEL_events.100"
 		every_country = {
 			limit = { DVEL_is_right_government = yes }
 			#{ country development math
@@ -542,7 +542,7 @@ country_event = { # The Big One
 						if = {
 							limit = {
 								any_neighbor_province = {
-									owned_by = event_target:DVEL_owner_dummy
+									owned_by = prev
 									DVEL_is_right_culture = yes
 								}
 							}
@@ -565,7 +565,7 @@ country_event = { # The Big One
 					if = { # neighbor per 250 years
 						limit = {
 							any_neighbor_province = {
-								owned_by = event_target:DVEL_owner_dummy
+								owned_by = prev
 								DVEL_is_right_culture = yes
 							}
 						}
@@ -574,7 +574,7 @@ country_event = { # The Big One
 							1 = {
 								random_neighbor_province = {
 									limit = {
-										owned_by = event_target:DVEL_owner_dummy
+										owned_by = prev
 										DVEL_is_right_culture = yes
 									}
 									PREV = { change_culture = PREV }
@@ -659,7 +659,7 @@ country_event = { # yearly report
 	is_triggered_only = yes
 
 	option = {
-		log = "DVEL_events.101"
+		# log = "DVEL_events.101"
 		name = DVEL_events.101.a
 	}
 
@@ -768,46 +768,46 @@ country_event = { # monthly
 			}
 			if = {	# monthly modifiers
 				limit = { has_global_flag = DVEL_no_manual_development_flag }
+				# log = "DVEL monthly"
 				if = { limit = { NOT = { has_global_flag = DVEL_VN_flag } }
 					every_country = {
 						limit = { ai = no }
-						trigger_switch = {
-							on_trigger = government_rank
-							3 = {
-								if = {
-									limit = {
-										NOT = { has_country_modifier = DVEL_no_manual_dev_3 }
-									}
-									remove_country_modifier = DVEL_no_manual_dev_1
-									remove_country_modifier = DVEL_no_manual_dev_2
-									add_country_modifier = { name = DVEL_no_manual_dev_3 duration = -1 }
+						remove_country_modifier = DVEL_ai_diet
+						if = {
+							limit = { government_rank = 3 }
+							if = {
+								limit = {
+									NOT = { has_country_modifier = DVEL_no_manual_dev_3 }
 								}
+								remove_country_modifier = DVEL_no_manual_dev_1
+								remove_country_modifier = DVEL_no_manual_dev_2
+								add_country_modifier = { name = DVEL_no_manual_dev_3 duration = -1 }
 							}
-							2 = {
-								if = {
-									limit = {
-										NOT = { has_country_modifier = DVEL_no_manual_dev_2 }
-									}
-									remove_country_modifier = DVEL_no_manual_dev_1
-									add_country_modifier = { name = DVEL_no_manual_dev_2 duration = -1 }
-									remove_country_modifier = DVEL_no_manual_dev_3
+						} else_if = {
+							limit = { government_rank = 2 }
+							if = {
+								limit = {
+									NOT = { has_country_modifier = DVEL_no_manual_dev_2 }
 								}
+								remove_country_modifier = DVEL_no_manual_dev_1
+								add_country_modifier = { name = DVEL_no_manual_dev_2 duration = -1 }
+								remove_country_modifier = DVEL_no_manual_dev_3
 							}
-							1 = {
-								if = {
-									limit = {
-										NOT = { has_country_modifier = DVEL_no_manual_dev_1 }
-									}
-									add_country_modifier = { name = DVEL_no_manual_dev_1 duration = -1 }
-									remove_country_modifier = DVEL_no_manual_dev_2
-									remove_country_modifier = DVEL_no_manual_dev_3
+						} else = {
+							if = {
+								limit = {
+									NOT = { has_country_modifier = DVEL_no_manual_dev_1 }
 								}
+								add_country_modifier = { name = DVEL_no_manual_dev_1 duration = -1 }
+								remove_country_modifier = DVEL_no_manual_dev_2
+								remove_country_modifier = DVEL_no_manual_dev_3
 							}
 						}
 					}
 				} else = {
 					every_country = {
 						limit = { ai = no }
+						remove_country_modifier = DVEL_ai_diet
 						if = {
 							limit = { government_rank = 6 }
 							if = {
@@ -843,6 +843,7 @@ country_event = { # monthly
 			} else = {
 				every_country = {
 					limit = { ai = no }
+					remove_country_modifier = DVEL_ai_diet
 					remove_country_modifier = DVEL_no_manual_dev_1
 					remove_country_modifier = DVEL_no_manual_dev_2
 					remove_country_modifier = DVEL_no_manual_dev_3
@@ -916,37 +917,34 @@ country_event = { # yearly
 					every_country = {
 						limit = { ai = yes }
 						add_country_modifier = { name = DVEL_ai_diet duration = -1 hidden = yes }
-						trigger_switch = {
-							on_trigger = government_rank
-							3 = {
-								if = {
-									limit = {
-										NOT = { has_country_modifier = DVEL_no_manual_dev_3 }
-									}
-									remove_country_modifier = DVEL_no_manual_dev_1
-									remove_country_modifier = DVEL_no_manual_dev_2
-									add_country_modifier = { name = DVEL_no_manual_dev_3 duration = -1 }
+						if = {
+							limit = { government_rank = 3 }
+							if = {
+								limit = {
+									NOT = { has_country_modifier = DVEL_no_manual_dev_3 }
 								}
+								remove_country_modifier = DVEL_no_manual_dev_1
+								remove_country_modifier = DVEL_no_manual_dev_2
+								add_country_modifier = { name = DVEL_no_manual_dev_3 duration = -1 }
 							}
-							2 = {
-								if = {
-									limit = {
-										NOT = { has_country_modifier = DVEL_no_manual_dev_2 }
-									}
-									remove_country_modifier = DVEL_no_manual_dev_1
-									add_country_modifier = { name = DVEL_no_manual_dev_2 duration = -1 }
-									remove_country_modifier = DVEL_no_manual_dev_3
+						} else_if = {
+							limit = { government_rank = 2 }
+							if = {
+								limit = {
+									NOT = { has_country_modifier = DVEL_no_manual_dev_2 }
 								}
+								remove_country_modifier = DVEL_no_manual_dev_1
+								add_country_modifier = { name = DVEL_no_manual_dev_2 duration = -1 }
+								remove_country_modifier = DVEL_no_manual_dev_3
 							}
-							1 = {
-								if = {
-									limit = {
-										NOT = { has_country_modifier = DVEL_no_manual_dev_1 }
-									}
-									add_country_modifier = { name = DVEL_no_manual_dev_1 duration = -1 }
-									remove_country_modifier = DVEL_no_manual_dev_2
-									remove_country_modifier = DVEL_no_manual_dev_3
+						} else = {
+							if = {
+								limit = {
+									NOT = { has_country_modifier = DVEL_no_manual_dev_1 }
 								}
+								add_country_modifier = { name = DVEL_no_manual_dev_1 duration = -1 }
+								remove_country_modifier = DVEL_no_manual_dev_2
+								remove_country_modifier = DVEL_no_manual_dev_3
 							}
 						}
 					}
