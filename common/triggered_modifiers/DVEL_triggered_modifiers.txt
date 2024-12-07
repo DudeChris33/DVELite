@@ -3,7 +3,6 @@ DVEL_peacetime_reconstruction = {
 		NOT = {
 			government = native
 			is_migratory_tribe = yes
-			can_migrate = yes
 		}
 	}
 	trigger = {

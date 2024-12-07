@@ -24,10 +24,12 @@ DVEL_is_right_government = {
 			government = theocracy
 			government = republic
 		}
-		NOT = { government = native }
-		NOT = { government = tribal }
-		NOT = { DVEL_is_primitive = yes }
-		NOT = { is_migratory_tribe = yes }
+		NOT = {
+			government = native
+			government = tribal
+			DVEL_is_primitive = yes
+			is_migratory_tribe = yes
+		}
 	}
 }
 
@@ -89,18 +91,6 @@ DVEL_is_primitive = {
 		}
 	}
 }
-
-# DVEL_sinicization_target = {
-# 	OR = {
-# 		culture_group = korean_g
-# 		culture_group = tibetan_group
-# 		culture_group = altaic
-# 		culture = manchu
-# 		culture = mongol
-# 		culture = vietnamese
-# 		culture = zhuang
-# 	}
-# }
 
 # num_of_provinces_developed = {	# override
 	# custom_trigger_tooltip = {

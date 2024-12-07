@@ -38,8 +38,8 @@ country_event = { # initialization
 	option = { # default setup
 		name = DVEL_events.0.a
 		highlight = yes
+		custom_tooltip = "Default setup: no report, no manual dev, culture spread to non-accepted cultures in other groups, nicer devastation"
 		
-		custom_tooltip = "Default setup: no report, no manual dev, culture spread to non-accepted cultures in other groups, no mana drain, nicer devastation"
 		clr_global_flag = DVEL_debug_mode_flag
 		clr_country_flag = DVEL_debug_target_flag
 		set_global_flag = DVEL_no_manual_development_flag
@@ -57,8 +57,8 @@ country_event = { # initialization
 
 	option = {	# barebones setup
 		name = DVEL_events.0.b
-		
 		custom_tooltip = "Barebones setup: just dynamic development no bells and whistles"
+		
 		clr_global_flag = DVEL_debug_mode_flag
 		clr_country_flag = DVEL_debug_target_flag
 		clr_global_flag = DVEL_no_manual_development_flag
@@ -76,15 +76,15 @@ country_event = { # initialization
 
 	option = { # custom setup
 		name = DVEL_events.0.c
-
 		custom_tooltip = "Manual setup: choose options"
+		
 		country_event = { id = DVEL_events.1 }
 	}
 	
 	option = { # dev setup
 		name = DVEL_events.0.d
-
-		custom_tooltip = "Developer setup: annual report, no manual dev, culture spread to non-accepted in other groups, no mana drain"
+		custom_tooltip = "Developer setup: annual report, no manual dev, culture spread to non-accepted in other groups"
+		
 		set_global_flag = DVEL_debug_mode_flag
 		set_country_flag = DVEL_debug_target_flag
 		set_global_flag = DVEL_no_manual_development_flag
@@ -151,33 +151,6 @@ country_event = { # manual development setup
 		country_event = { id = DVEL_events.4 }
 	}
 }
-
-# country_event = { # devastation
-# 	id = DVEL_events.3
-# 	title = DVEL_events.3.t
-# 	desc = DVEL_events.3.desc
-
-# 	is_triggered_only = yes
-	
-# 	option = { # normal devastation
-# 		name = DVEL_events.3.a
-
-# 		clr_global_flag = DVEL_nicer_devastation_flag
-# 	}
-	
-# 	option = { # nicer devastation
-# 		name = DVEL_events.3.b
-		
-# 		set_global_flag = DVEL_nicer_devastation_flag
-# 	}
-
-# 	after = {
-# 		hidden_effect = {
-# 			118 = { owner = { country_event = { id = DVEL_events.201 } } }
-# 		}
-# 		country_event = { id = DVEL_events.4 }
-# 	}
-# }
 
 country_event = { # culture spread setup
 	id = DVEL_events.4
@@ -249,13 +222,15 @@ country_event = { # auto drain setup
 
 country_event = { # The Big One
 	id = DVEL_events.100
+	title = "DVEL_events.100"
+	desc = "DVEL_events.100"
 	hidden = yes
 
 	is_triggered_only = yes
 
 	trigger = { owns = 118 }
 
-	option = {
+	immediate = {
 		every_country = {
 			limit = { DVEL_is_right_government = yes }
 			#{ country development math
@@ -522,7 +497,7 @@ country_event = { # The Big One
 						if = {
 							limit = {
 								any_neighbor_province = {
-									owned_by = prev
+									owned_by = event_target:DVEL_owner_dummy
 									DVEL_is_right_culture = yes
 								}
 							}
@@ -545,7 +520,7 @@ country_event = { # The Big One
 					if = { # neighbor per 250 years
 						limit = {
 							any_neighbor_province = {
-								owned_by = prev
+								owned_by = event_target:DVEL_owner_dummy
 								DVEL_is_right_culture = yes
 							}
 						}
@@ -554,7 +529,7 @@ country_event = { # The Big One
 							1 = {
 								random_neighbor_province = {
 									limit = {
-										owned_by = prev
+										owned_by = event_target:DVEL_owner_dummy
 										DVEL_is_right_culture = yes
 									}
 									PREV = { change_culture = PREV }
@@ -576,44 +551,16 @@ country_event = { # The Big One
 								modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 2.00 } }
 							}
 						}
-					# } else = { # exclave per 1000 years
-					# 	random_list = {
-					# 		999 = { }
-					# 		1 = {
-					# 			# if = {
-					# 			# 	limit = { owner = { NOT = { is_emperor_of_china = yes culture_group = east_asian } } }
-					# 				change_culture = owner
-					# 			# } else_if = {
-					# 			# 	limit = { DVEL_sinicization_target = yes }
-					# 			# 	DVEL_sinicize = yes
-					# 			# }
-					# 			if = {
-					# 				limit = { has_global_flag = DVEL_debug_mode_flag }
-					# 				REB = { change_variable = { which = cultureSpreads value = 1 } }
-					# 			}
-					# 			modifier = { factor = 0.5 NOT = { tolerance_to_this = 3 } }
-					# 			modifier = { factor = 0.5 NOT = { tolerance_to_this = 0 } }
-					# 			modifier = { factor = 0.25 NOT = { is_state = yes } }
-					# 			modifier = { factor = 0.25 is_owned_by_trade_company = yes }
-					# 			modifier = { factor = 2 NOT = { check_variable = { which = netCultureCost value = 0.75 } } }
-					# 			modifier = { factor = 2 NOT = { check_variable = { which = netCultureCost value = 0.50 } } }
-					# 			modifier = { factor = 2 NOT = { check_variable = { which = netCultureCost value = 0.25 } } }
-					# 			modifier = { factor = 2 NOT = { check_variable = { which = netCultureCost value = 0.00 } } }
-					# 			modifier = { factor = 0.5 check_variable = { which = netCultureCost value = 1.25 } }
-					# 			modifier = { factor = 0.5 check_variable = { which = netCultureCost value = 1.50 } }
-					# 			modifier = { factor = 0.5 check_variable = { which = netCultureCost value = 1.75 } }
-					# 			modifier = { factor = 0.5 check_variable = { which = netCultureCost value = 2.00 } }
-					# 		}
-					# 	}
 					}
 				}
 			}
 		}
 	}
 
+	option = { }
+
 	after = {
 		hidden_effect = {
-			# set_global_flag = DVEL_anti_trigger_flag
 			if = {
 				limit = { has_global_flag = DVEL_debug_mode_flag }
 				every_country = {
@@ -641,15 +588,6 @@ country_event = { # yearly report
 	option = {
 		name = DVEL_events.101.a
 	}
-
-	# option = {
-	# 	name = DVEL_events.101.b
-	# 	clr_country_flag = DVEL_debug_target_flag
-	# 	if = {
-	# 		limit = { NOT = { any_country = { has_country_flag = DVEL_debug_target_flag } } }
-	# 		clr_global_flag = DVEL_debug_mode_flag
-	# 	}
-	# }
 
 	after = {
 		hidden_effect = {
@@ -686,6 +624,8 @@ country_event = { # census
 
 country_event = { # monthly
 	id = DVEL_events.200
+	title = "DVEL_events.200"
+	desc = "DVEL_events.200"
 	hidden = yes
 	
 	is_triggered_only = yes
@@ -787,11 +727,9 @@ country_event = { # monthly
 						limit = { ai = no }
 						remove_country_modifier = DVEL_ai_diet
 						if = {
-							limit = { government_rank = 6 }
+							limit = { government_rank = 5 }
 							if = {
-								limit = {
-									NOT = { has_country_modifier = DVEL_no_manual_dev_3 }
-								}
+								limit = { NOT = { has_country_modifier = DVEL_no_manual_dev_3 } }
 								remove_country_modifier = DVEL_no_manual_dev_1
 								remove_country_modifier = DVEL_no_manual_dev_2
 								add_country_modifier = { name = DVEL_no_manual_dev_3 duration = -1 }
@@ -799,18 +737,15 @@ country_event = { # monthly
 						} else_if = {
 							limit = { government_rank = 3 }
 							if = {
-								limit = {
-									NOT = { has_country_modifier = DVEL_no_manual_dev_2 }
-								}
+								limit = { NOT = { has_country_modifier = DVEL_no_manual_dev_2 } }
 								remove_country_modifier = DVEL_no_manual_dev_1
 								add_country_modifier = { name = DVEL_no_manual_dev_2 duration = -1 }
 								remove_country_modifier = DVEL_no_manual_dev_3
 							}
-						} else = {
+						} else_if = {
+							limit = { government_rank = 1 }
 							if = {
-								limit = {
-									NOT = { has_country_modifier = DVEL_no_manual_dev_1 }
-								}
+								limit = { NOT = { has_country_modifier = DVEL_no_manual_dev_1 } }
 								add_country_modifier = { name = DVEL_no_manual_dev_1 duration = -1 }
 								remove_country_modifier = DVEL_no_manual_dev_2
 								remove_country_modifier = DVEL_no_manual_dev_3
@@ -829,6 +764,7 @@ country_event = { # monthly
 			}
 			every_country = {
 				limit = { ai = no }
+				remove_country_modifier = DVEL_primitives
 				if = {
 					limit = {
 						NOT = { is_subject = yes }
@@ -848,7 +784,6 @@ country_event = { # monthly
 					add_country_modifier = { name = DVEL_subject_growth_limiter duration = -1 }
 					remove_country_modifier = DVEL_colony_growth_limiter
 				}
-				remove_country_modifier = DVEL_primitives
 			}
 			if = {	# mana drain
 				limit = { has_global_flag = DVEL_draining }
@@ -879,6 +814,8 @@ country_event = { # monthly
 
 country_event = { # yearly
 	id = DVEL_events.201
+	title = "DVEL_events.201"
+	desc = "DVEL_events.201"
 	hidden = yes
 	
 	is_triggered_only = yes
@@ -887,7 +824,7 @@ country_event = { # yearly
 		owns = 118
 	}
 	
-	option = {
+	immediate = {
 		hidden_effect = {
 			if = {
 				limit = { has_global_flag = DVEL_no_manual_development_flag }
@@ -931,11 +868,9 @@ country_event = { # yearly
 						limit = { ai = yes }
 						add_country_modifier = { name = DVEL_ai_diet duration = -1 hidden = yes }
 						if = {
-							limit = { government_rank = 6 }
+							limit = { government_rank = 5 }
 							if = {
-								limit = {
-									NOT = { has_country_modifier = DVEL_no_manual_dev_3 }
-								}
+								limit = { NOT = { has_country_modifier = DVEL_no_manual_dev_3 } }
 								remove_country_modifier = DVEL_no_manual_dev_1
 								remove_country_modifier = DVEL_no_manual_dev_2
 								add_country_modifier = { name = DVEL_no_manual_dev_3 duration = -1 }
@@ -943,18 +878,15 @@ country_event = { # yearly
 						} else_if = {
 							limit = { government_rank = 3 }
 							if = {
-								limit = {
-									NOT = { has_country_modifier = DVEL_no_manual_dev_2 }
-								}
+								limit = { NOT = { has_country_modifier = DVEL_no_manual_dev_2 } }
 								remove_country_modifier = DVEL_no_manual_dev_1
 								add_country_modifier = { name = DVEL_no_manual_dev_2 duration = -1 }
 								remove_country_modifier = DVEL_no_manual_dev_3
 							}
-						} else = {
+						} else_if = {
+							limit = { government_rank = 1 }
 							if = {
-								limit = {
-									NOT = { has_country_modifier = DVEL_no_manual_dev_1 }
-								}
+								limit = { NOT = { has_country_modifier = DVEL_no_manual_dev_1 } }
 								add_country_modifier = { name = DVEL_no_manual_dev_1 duration = -1 }
 								remove_country_modifier = DVEL_no_manual_dev_2
 								remove_country_modifier = DVEL_no_manual_dev_3
@@ -1080,10 +1012,9 @@ country_event = { # yearly
 						remove_country_modifier = DVEL_et_late_middle_ages_modifier
 					}
 				}
-			# } else_if = {
-			# 	limit = { has_global_flag = DVEL_TOE_flag }
-			# 	DVEL_toe_age_modifiers = yes
 			}
 		}
 	}
+
+	option = { }
 }
