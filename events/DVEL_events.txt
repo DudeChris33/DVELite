@@ -232,7 +232,7 @@ country_event = { # The Big One
 
 	immediate = {
 		every_country = {
-			limit = { DVEL_is_right_government = yes }
+			limit = { NOT = { is_migratory_tribe = yes } }
 			#{ country development math
 				#{ global
 					export_to_variable = {	which = globalDevCost	value = modifier:development_cost }
@@ -305,22 +305,25 @@ country_event = { # The Big One
 				}
 			#}
 		}
-		every_province = {
-			limit = { NOT = { base_tax = 1 } }
-			set_base_tax = 1
-		}
-		every_province = {
-			limit = { NOT = { base_production = 1 } }
-			set_base_production = 1
-		}
-		every_province = {
-			limit = { NOT = { base_manpower = 1 } }
-			set_base_manpower = 1
+		random = {
+			chance = 10
+			every_province = {
+				limit = { NOT = { base_tax = 1 } }
+				set_base_tax = 1
+			}
+			every_province = {
+				limit = { NOT = { base_production = 1 } }
+				set_base_production = 1
+			}
+			every_province = {
+				limit = { NOT = { base_manpower = 1 } }
+				set_base_manpower = 1
+			}
 		}
 		every_province = {
 			limit = {
 				is_city = yes
-				owner = { DVEL_is_right_government = yes }
+				owner = { NOT = { is_migratory_tribe = yes } }
 			}
 			#{ DVEL_province_dev_math
 				set_variable = { which = netDevCost		value = 1 }
@@ -382,18 +385,15 @@ country_event = { # The Big One
 						modifier = { factor = 2		NOT = { check_variable = { which = netDevCost value = 0.0 } } }
 						modifier = { factor = 1.5	owner = { stability = 3 } }
 						modifier = { factor = 1.5	owner = { stability = 2 } }
-						modifier = { factor = 0.5	owner = { NOT = { stability = 1 } } }
-						modifier = { factor = 0.5	owner = { NOT = { stability = 0 } } }
-						modifier = { factor = 0.5	owner = { NOT = { stability = -1 } } }
-						modifier = { factor = 0.5	owner = { NOT = { stability = -2 } } }
+						modifier = { factor = 0.67	owner = { NOT = { stability = 1 } } }
+						modifier = { factor = 0.67	owner = { NOT = { stability = 0 } } }
+						modifier = { factor = 0.67	owner = { NOT = { stability = -1 } } }
+						modifier = { factor = 0.67	owner = { NOT = { stability = -2 } } }
 						modifier = { factor = 0.5	owner = { governing_capacity_percentage = 0.5 } }
 						modifier = { factor = 0.5	owner = { governing_capacity_percentage = 1.0 } }
 						modifier = { factor = 0.5	owner = { governing_capacity_percentage = 1.5 } }
 						modifier = { factor = 0.5	owner = { governing_capacity_percentage = 2.0 } }
 						DVEL_add_development = yes
-						owner = {
-							change_variable = { which = num_of_times_developed value = 1 }
-						}
 						if = {
 							limit = { has_global_flag = DVEL_debug_mode_flag }
 							REB = { change_variable = { which = devAdded value = 1 } }
@@ -419,19 +419,46 @@ country_event = { # The Big One
 					development = 4
 					has_global_flag = DVEL_no_manual_development_flag
 				}
+				# set_variable = { which = tempBestCost which = netDevCost }
+				# save_event_target_as = tempBestProvince
+				# every_neighbor_province = {
+				# 	limit = {
+				# 		is_city = yes
+				# 		owner = { NOT = { is_migratory_tribe = yes } }
+				# 	}
+				# 	set_variable = { which = tempBestCost which = prev }
+				# 	if = {
+				# 		limit = {	# less is better
+				# 			check_variable = { which = tempBestCost which = netDevCost }
+				# 		}
+				# 		set_variable = { which = tempBestCost which = netDevCost }
+				# 		PREV = { set_variable = { which = tempBestCost which = prev } }
+				# 		save_event_target_as = tempBestProvince
+				# 	}
+				# }
+
+				# random_list = {
+				# 	1 = { add_base_tax = -1 trigger = { base_tax = 2 } }
+				# 	1 = { add_base_production = -1 trigger = { base_production = 2 } }
+				# 	1 = { add_base_manpower = -1 trigger = { base_manpower = 2 } }
+				# }
+
+
+				set_variable = { which = mig value = 1 }
 				DVEL_remove_development = yes
+				set_variable = { which = mig value = 0 }
 				if = {
 					limit = {
 						any_neighbor_province = {
 							is_city = yes
-							owner = { DVEL_is_right_government = yes }
+							owner = { NOT = { is_migratory_tribe = yes } }
 							NOT = { check_variable = { which = netDevCost value = 1 } }
 						}
 					}
 					random_neighbor_province = {
 						limit = {
 							is_city = yes
-							owner = { DVEL_is_right_government = yes }
+							owner = { NOT = { is_migratory_tribe = yes } }
 							NOT = { check_variable = { which = netDevCost value = 1 } }
 						}
 						DVEL_add_development = yes
@@ -440,25 +467,38 @@ country_event = { # The Big One
 					limit = {
 						any_neighbor_province = {
 							is_city = yes
-							owner = { DVEL_is_right_government = yes }
+							owner = { NOT = { is_migratory_tribe = yes } }
 							NOT = { check_variable = { which = netDevCost value = 2 } }
 						}
 					}
 					random_neighbor_province = {
 						limit = {
 							is_city = yes
-							owner = { DVEL_is_right_government = yes }
+							owner = { NOT = { is_migratory_tribe = yes } }
 							NOT = { check_variable = { which = netDevCost value = 2 } }
+						}
+						DVEL_add_development = yes
+					}
+				} else_if = {
+					limit = {
+						any_neighbor_province = {
+							is_city = yes
+							owner = { NOT = { is_migratory_tribe = yes } }
+						}
+					}
+					random_neighbor_province = {
+						limit = {
+							is_city = yes
+							owner = { NOT = { is_migratory_tribe = yes } }
 						}
 						DVEL_add_development = yes
 					}
 				} else = {
-					random_neighbor_province = {
-						limit = {
-							is_city = yes
-							owner = { DVEL_is_right_government = yes }
+					owner = {
+						random_owned_province = {
+							limit = { is_city = yes }
+							DVEL_add_development = yes
 						}
-						DVEL_add_development = yes
 					}
 				}
 				owner = {
@@ -469,91 +509,91 @@ country_event = { # The Big One
 				}
 				REB = { change_variable = { which = migrations value = 1 } }
 			}
-			if = { # culture spread
-				limit = {
-					NOT = { has_global_flag = DVEL_no_culture_spread_flag }
-					OR = {
-						has_owner_religion = yes
-						has_owner_secondary_religion = yes
-						has_owner_harmonized_religion = yes
-					}
-					NOT = { nationalism = 1 }
-					NOT = { DVEL_is_right_culture = yes }
-					NOT = { has_province_modifier = DVEL_recently_converted }
-				}
-				owner = { save_event_target_as = DVEL_owner_dummy }
-				#{ province culture math
-					set_variable = { which = netCultureCost		value = 1 }
-					set_variable = { which = netCultureSpeed	value = 1 }
-					#{ global import
-						set_variable = {	which = globalCultureCost	which = owner }
-						set_variable = {	which = globalCultureSpeed	which = owner }
-						change_variable = {	which = netCultureCost		which = globalCultureCost }
-						change_variable = {	which = netCultureSpeed		which = globalCultureSpeed }
-					#}
-					#{ local
-						export_to_variable = { which = localCultureCost		value = modifier:local_culture_conversion_cost }
-						export_to_variable = { which = localCultureSpeed	value = modifier:culture_conversion_time }
-						if = {
-							limit = {
-								any_neighbor_province = {
-									owned_by = event_target:DVEL_owner_dummy
-									DVEL_is_right_culture = yes
-								}
-							}
-							change_variable = { which = localCultureCost value = -0.25 }
-						}
-						change_variable = { which = netCultureCost	which = localCultureCost }
-						change_variable = { which = netCultureSpeed	which = localCultureSpeed }
-					#}
-					multiply_variable = { which = netCultureCost which = netCultureSpeed }
-					# log = "----------DVEL----------"
-					# log = "localCultureCost: [This.localCultureCost.GetValue]"
-					# log = "globalCultureCost: [This.globalCultureCost.GetValue]"
-					# log = "netCultureCost: [This.netCultureCost.GetValue]"
-				#}
-				if = {
-					limit = {
-						NOT = { check_variable = { which = netCultureCost value = 2 } }
-						check_variable = { which = netCultureCost value = -1 }
-					}
-					if = { # neighbor per 250 years
-						limit = {
-							any_neighbor_province = {
-								owned_by = event_target:DVEL_owner_dummy
-								DVEL_is_right_culture = yes
-							}
-						}
-						random_list = {
-							249 = { }
-							1 = {
-								random_neighbor_province = {
-									limit = {
-										owned_by = event_target:DVEL_owner_dummy
-										DVEL_is_right_culture = yes
-									}
-									PREV = { change_culture = PREV }
-								}
-								if = {
-									limit = { has_global_flag = DVEL_debug_mode_flag }
-									REB = { change_variable = { which = cultureSpreads value = 1 } }
-								}
-								modifier = { factor = 0.5	NOT = { tolerance_to_this = 3 } }
-								modifier = { factor = 0.5	NOT = { tolerance_to_this = 0 } }
-								modifier = { factor = 0.25	OR = { is_state = no is_owned_by_trade_company = yes } }
-								modifier = { factor = 2		NOT = { check_variable = { which = netCultureCost value = 0.75 } } }
-								modifier = { factor = 2		NOT = { check_variable = { which = netCultureCost value = 0.50 } } }
-								modifier = { factor = 2		NOT = { check_variable = { which = netCultureCost value = 0.25 } } }
-								modifier = { factor = 2		NOT = { check_variable = { which = netCultureCost value = 0.00 } } }
-								modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 1.25 } }
-								modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 1.50 } }
-								modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 1.75 } }
-								modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 2.00 } }
-							}
-						}
-					}
-				}
-			}
+			# if = { # culture spread
+			# 	limit = {
+			# 		NOT = { has_global_flag = DVEL_no_culture_spread_flag }
+			# 		OR = {
+			# 			has_owner_religion = yes
+			# 			has_owner_secondary_religion = yes
+			# 			has_owner_harmonized_religion = yes
+			# 		}
+			# 		NOT = { nationalism = 1 }
+			# 		NOT = { DVEL_is_right_culture = yes }
+			# 		NOT = { has_province_modifier = DVEL_recently_converted }
+			# 	}
+			# 	owner = { save_event_target_as = DVEL_owner_dummy }
+			# 	#{ province culture math
+			# 		set_variable = { which = netCultureCost		value = 1 }
+			# 		set_variable = { which = netCultureSpeed	value = 1 }
+			# 		#{ global import
+			# 			set_variable = {	which = globalCultureCost	which = owner }
+			# 			set_variable = {	which = globalCultureSpeed	which = owner }
+			# 			change_variable = {	which = netCultureCost		which = globalCultureCost }
+			# 			change_variable = {	which = netCultureSpeed		which = globalCultureSpeed }
+			# 		#}
+			# 		#{ local
+			# 			export_to_variable = { which = localCultureCost		value = modifier:local_culture_conversion_cost }
+			# 			export_to_variable = { which = localCultureSpeed	value = modifier:culture_conversion_time }
+			# 			if = {
+			# 				limit = {
+			# 					any_neighbor_province = {
+			# 						owned_by = event_target:DVEL_owner_dummy
+			# 						DVEL_is_right_culture = yes
+			# 					}
+			# 				}
+			# 				change_variable = { which = localCultureCost value = -0.25 }
+			# 			}
+			# 			change_variable = { which = netCultureCost	which = localCultureCost }
+			# 			change_variable = { which = netCultureSpeed	which = localCultureSpeed }
+			# 		#}
+			# 		multiply_variable = { which = netCultureCost which = netCultureSpeed }
+			# 		# log = "----------DVEL----------"
+			# 		# log = "localCultureCost: [This.localCultureCost.GetValue]"
+			# 		# log = "globalCultureCost: [This.globalCultureCost.GetValue]"
+			# 		# log = "netCultureCost: [This.netCultureCost.GetValue]"
+			# 	#}
+			# 	if = {
+			# 		limit = {
+			# 			NOT = { check_variable = { which = netCultureCost value = 2 } }
+			# 			check_variable = { which = netCultureCost value = -1 }
+			# 		}
+			# 		if = { # neighbor per 250 years
+			# 			limit = {
+			# 				any_neighbor_province = {
+			# 					owned_by = event_target:DVEL_owner_dummy
+			# 					DVEL_is_right_culture = yes
+			# 				}
+			# 			}
+			# 			random_list = {
+			# 				249 = { }
+			# 				1 = {
+			# 					random_neighbor_province = {
+			# 						limit = {
+			# 							owned_by = event_target:DVEL_owner_dummy
+			# 							DVEL_is_right_culture = yes
+			# 						}
+			# 						PREV = { change_culture = PREV }
+			# 					}
+			# 					if = {
+			# 						limit = { has_global_flag = DVEL_debug_mode_flag }
+			# 						REB = { change_variable = { which = cultureSpreads value = 1 } }
+			# 					}
+			# 					modifier = { factor = 0.5	NOT = { tolerance_to_this = 3 } }
+			# 					modifier = { factor = 0.5	NOT = { tolerance_to_this = 0 } }
+			# 					modifier = { factor = 0.25	OR = { is_state = no is_owned_by_trade_company = yes } }
+			# 					modifier = { factor = 2		NOT = { check_variable = { which = netCultureCost value = 0.75 } } }
+			# 					modifier = { factor = 2		NOT = { check_variable = { which = netCultureCost value = 0.50 } } }
+			# 					modifier = { factor = 2		NOT = { check_variable = { which = netCultureCost value = 0.25 } } }
+			# 					modifier = { factor = 2		NOT = { check_variable = { which = netCultureCost value = 0.00 } } }
+			# 					modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 1.25 } }
+			# 					modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 1.50 } }
+			# 					modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 1.75 } }
+			# 					modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 2.00 } }
+			# 				}
+			# 			}
+			# 		}
+			# 	}
+			# }
 		}
 	}
 
@@ -637,7 +677,7 @@ country_event = { # monthly
 	immediate = {
 		hidden_effect = {
 			every_country = {
-				limit = { DVEL_is_right_government = yes }
+				limit = { NOT = { is_migratory_tribe = yes } }
 				every_owned_province = {
 					limit = { is_city = yes }
 					if = {	# coastal raids
@@ -691,34 +731,37 @@ country_event = { # monthly
 					every_country = {
 						limit = { ai = no }
 						remove_country_modifier = DVEL_ai_diet
-						if = {
-							limit = { government_rank = 3 }
-							if = {
-								limit = {
-									NOT = { has_country_modifier = DVEL_no_manual_dev_3 }
+						trigger_switch = {
+							on_trigger = government_rank
+							3 = {
+								if = {
+									limit = {
+										NOT = { has_country_modifier = DVEL_no_manual_dev_3 }
+									}
+									remove_country_modifier = DVEL_no_manual_dev_1
+									remove_country_modifier = DVEL_no_manual_dev_2
+									add_country_modifier = { name = DVEL_no_manual_dev_3 duration = -1 }
 								}
-								remove_country_modifier = DVEL_no_manual_dev_1
-								remove_country_modifier = DVEL_no_manual_dev_2
-								add_country_modifier = { name = DVEL_no_manual_dev_3 duration = -1 }
 							}
-						} else_if = {
-							limit = { government_rank = 2 }
-							if = {
-								limit = {
-									NOT = { has_country_modifier = DVEL_no_manual_dev_2 }
+							2 = {
+								if = {
+									limit = {
+										NOT = { has_country_modifier = DVEL_no_manual_dev_2 }
+									}
+									remove_country_modifier = DVEL_no_manual_dev_1
+									add_country_modifier = { name = DVEL_no_manual_dev_2 duration = -1 }
+									remove_country_modifier = DVEL_no_manual_dev_3
 								}
-								remove_country_modifier = DVEL_no_manual_dev_1
-								add_country_modifier = { name = DVEL_no_manual_dev_2 duration = -1 }
-								remove_country_modifier = DVEL_no_manual_dev_3
 							}
-						} else = {
-							if = {
-								limit = {
-									NOT = { has_country_modifier = DVEL_no_manual_dev_1 }
+							1 = {
+								if = {
+									limit = {
+										NOT = { has_country_modifier = DVEL_no_manual_dev_1 }
+									}
+									add_country_modifier = { name = DVEL_no_manual_dev_1 duration = -1 }
+									remove_country_modifier = DVEL_no_manual_dev_2
+									remove_country_modifier = DVEL_no_manual_dev_3
 								}
-								add_country_modifier = { name = DVEL_no_manual_dev_1 duration = -1 }
-								remove_country_modifier = DVEL_no_manual_dev_2
-								remove_country_modifier = DVEL_no_manual_dev_3
 							}
 						}
 					}
@@ -832,34 +875,37 @@ country_event = { # yearly
 					every_country = {
 						limit = { ai = yes }
 						add_country_modifier = { name = DVEL_ai_diet duration = -1 hidden = yes }
-						if = {
-							limit = { government_rank = 3 }
-							if = {
-								limit = {
-									NOT = { has_country_modifier = DVEL_no_manual_dev_3 }
+						trigger_switch = {
+							on_trigger = government_rank
+							3 = {
+								if = {
+									limit = {
+										NOT = { has_country_modifier = DVEL_no_manual_dev_3 }
+									}
+									remove_country_modifier = DVEL_no_manual_dev_1
+									remove_country_modifier = DVEL_no_manual_dev_2
+									add_country_modifier = { name = DVEL_no_manual_dev_3 duration = -1 }
 								}
-								remove_country_modifier = DVEL_no_manual_dev_1
-								remove_country_modifier = DVEL_no_manual_dev_2
-								add_country_modifier = { name = DVEL_no_manual_dev_3 duration = -1 }
 							}
-						} else_if = {
-							limit = { government_rank = 2 }
-							if = {
-								limit = {
-									NOT = { has_country_modifier = DVEL_no_manual_dev_2 }
+							2 = {
+								if = {
+									limit = {
+										NOT = { has_country_modifier = DVEL_no_manual_dev_2 }
+									}
+									remove_country_modifier = DVEL_no_manual_dev_1
+									add_country_modifier = { name = DVEL_no_manual_dev_2 duration = -1 }
+									remove_country_modifier = DVEL_no_manual_dev_3
 								}
-								remove_country_modifier = DVEL_no_manual_dev_1
-								add_country_modifier = { name = DVEL_no_manual_dev_2 duration = -1 }
-								remove_country_modifier = DVEL_no_manual_dev_3
 							}
-						} else = {
-							if = {
-								limit = {
-									NOT = { has_country_modifier = DVEL_no_manual_dev_1 }
+							1 = {
+								if = {
+									limit = {
+										NOT = { has_country_modifier = DVEL_no_manual_dev_1 }
+									}
+									add_country_modifier = { name = DVEL_no_manual_dev_1 duration = -1 }
+									remove_country_modifier = DVEL_no_manual_dev_2
+									remove_country_modifier = DVEL_no_manual_dev_3
 								}
-								add_country_modifier = { name = DVEL_no_manual_dev_1 duration = -1 }
-								remove_country_modifier = DVEL_no_manual_dev_2
-								remove_country_modifier = DVEL_no_manual_dev_3
 							}
 						}
 					}
@@ -940,7 +986,7 @@ country_event = { # yearly
 					}
 					every_country = {
 						if = {
-							limit = { DVEL_is_right_government = yes }
+							limit = { NOT = { is_migratory_tribe = yes } }
 							add_country_modifier = { name = DVEL_et_classical_age_modifier duration = -1 }
 						} else = {
 							remove_country_modifier = DVEL_et_classical_age_modifier
@@ -950,7 +996,7 @@ country_event = { # yearly
 					limit = { current_age = age_of_migrations }
 					every_country = {
 						if = {
-							limit = { DVEL_is_right_government = yes }
+							limit = { NOT = { is_migratory_tribe = yes } }
 							remove_country_modifier = DVEL_et_classical_age_modifier
 							add_country_modifier = { name = DVEL_et_age_of_migrations_modifier duration = -1 }
 						} else = {
@@ -962,7 +1008,7 @@ country_event = { # yearly
 					limit = { current_age = dark_age }
 					every_country = {
 						if = {
-							limit = { DVEL_is_right_government = yes }
+							limit = { NOT = { is_migratory_tribe = yes } }
 							remove_country_modifier = DVEL_et_age_of_migrations_modifier
 							add_country_modifier = { name = DVEL_et_dark_age_modifier duration = -1 }
 						} else = {
@@ -974,7 +1020,7 @@ country_event = { # yearly
 					limit = { current_age = feudal_age }
 					every_country = {
 						if = {
-							limit = { DVEL_is_right_government = yes }
+							limit = { NOT = { is_migratory_tribe = yes } }
 							remove_country_modifier = DVEL_et_dark_age_modifier
 							add_country_modifier = { name = DVEL_et_feudal_age_modifier duration = -1 }
 						} else = {
@@ -986,7 +1032,7 @@ country_event = { # yearly
 					limit = { current_age = high_middle_ages }
 					every_country = {
 						if = {
-							limit = { DVEL_is_right_government = yes }
+							limit = { NOT = { is_migratory_tribe = yes } }
 							remove_country_modifier = DVEL_et_feudal_age_modifier
 							add_country_modifier = { name = DVEL_et_high_middle_ages_modifier duration = -1 }
 						} else = {
@@ -998,7 +1044,7 @@ country_event = { # yearly
 					limit = { current_age = late_middle_ages }
 					every_country = {
 						if = {
-							limit = { DVEL_is_right_government = yes }
+							limit = { NOT = { is_migratory_tribe = yes } }
 							remove_country_modifier = DVEL_et_high_middle_ages_modifier
 							add_country_modifier = { name = DVEL_et_late_middle_ages_modifier duration = -1 }
 						} else = {

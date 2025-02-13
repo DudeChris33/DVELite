@@ -34,6 +34,10 @@ DVEL_add_development = {
 			trigger = { check_variable = { which = taxprod which = man } }
 		}
 	}
+	# owner = {
+	# 	change_variable = { which = num_of_times_developed value = 1 }
+	# }
+	# change_variable = { which = num_of_times_developed value = 1 }
 }
 
 DVEL_remove_development = {
@@ -76,6 +80,7 @@ DVEL_remove_development = {
 		limit = {
 			has_global_flag = DVEL_debug_mode_flag
 			check_variable = { which = amog value = 1 }
+			NOT = { check_variable = { which = mig value = 1 } }
 		}
 		REB = { change_variable = { which = devRemoved value = 1 } }
 		owner = {
