@@ -370,8 +370,8 @@ country_event = { # The Big One
 					NOT = { check_variable = { which = netDevCost value = 1 } }
 					check_variable = { which = netDevCost value = -2 }
 				}
-				random_list = { #once every 20 years
-					19 = { }
+				random_list = { # once every 30 years
+					29 = { }
 					1 = {
 						modifier = { factor = 0.25	NOT = { is_state = yes } }
 						modifier = { factor = 0.5	owner = { is_at_war = yes } }
