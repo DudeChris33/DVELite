@@ -509,91 +509,91 @@ country_event = { # The Big One
 				}
 				REB = { change_variable = { which = migrations value = 1 } }
 			}
-			# if = { # culture spread
-			# 	limit = {
-			# 		NOT = { has_global_flag = DVEL_no_culture_spread_flag }
-			# 		OR = {
-			# 			has_owner_religion = yes
-			# 			has_owner_secondary_religion = yes
-			# 			has_owner_harmonized_religion = yes
-			# 		}
-			# 		NOT = { nationalism = 1 }
-			# 		NOT = { DVEL_is_right_culture = yes }
-			# 		NOT = { has_province_modifier = DVEL_recently_converted }
-			# 	}
-			# 	owner = { save_event_target_as = DVEL_owner_dummy }
-			# 	#{ province culture math
-			# 		set_variable = { which = netCultureCost		value = 1 }
-			# 		set_variable = { which = netCultureSpeed	value = 1 }
-			# 		#{ global import
-			# 			set_variable = {	which = globalCultureCost	which = owner }
-			# 			set_variable = {	which = globalCultureSpeed	which = owner }
-			# 			change_variable = {	which = netCultureCost		which = globalCultureCost }
-			# 			change_variable = {	which = netCultureSpeed		which = globalCultureSpeed }
-			# 		#}
-			# 		#{ local
-			# 			export_to_variable = { which = localCultureCost		value = modifier:local_culture_conversion_cost }
-			# 			export_to_variable = { which = localCultureSpeed	value = modifier:culture_conversion_time }
-			# 			if = {
-			# 				limit = {
-			# 					any_neighbor_province = {
-			# 						owned_by = event_target:DVEL_owner_dummy
-			# 						DVEL_is_right_culture = yes
-			# 					}
-			# 				}
-			# 				change_variable = { which = localCultureCost value = -0.25 }
-			# 			}
-			# 			change_variable = { which = netCultureCost	which = localCultureCost }
-			# 			change_variable = { which = netCultureSpeed	which = localCultureSpeed }
-			# 		#}
-			# 		multiply_variable = { which = netCultureCost which = netCultureSpeed }
-			# 		# log = "----------DVEL----------"
-			# 		# log = "localCultureCost: [This.localCultureCost.GetValue]"
-			# 		# log = "globalCultureCost: [This.globalCultureCost.GetValue]"
-			# 		# log = "netCultureCost: [This.netCultureCost.GetValue]"
-			# 	#}
-			# 	if = {
-			# 		limit = {
-			# 			NOT = { check_variable = { which = netCultureCost value = 2 } }
-			# 			check_variable = { which = netCultureCost value = -1 }
-			# 		}
-			# 		if = { # neighbor per 250 years
-			# 			limit = {
-			# 				any_neighbor_province = {
-			# 					owned_by = event_target:DVEL_owner_dummy
-			# 					DVEL_is_right_culture = yes
-			# 				}
-			# 			}
-			# 			random_list = {
-			# 				249 = { }
-			# 				1 = {
-			# 					random_neighbor_province = {
-			# 						limit = {
-			# 							owned_by = event_target:DVEL_owner_dummy
-			# 							DVEL_is_right_culture = yes
-			# 						}
-			# 						PREV = { change_culture = PREV }
-			# 					}
-			# 					if = {
-			# 						limit = { has_global_flag = DVEL_debug_mode_flag }
-			# 						REB = { change_variable = { which = cultureSpreads value = 1 } }
-			# 					}
-			# 					modifier = { factor = 0.5	NOT = { tolerance_to_this = 3 } }
-			# 					modifier = { factor = 0.5	NOT = { tolerance_to_this = 0 } }
-			# 					modifier = { factor = 0.25	OR = { is_state = no is_owned_by_trade_company = yes } }
-			# 					modifier = { factor = 2		NOT = { check_variable = { which = netCultureCost value = 0.75 } } }
-			# 					modifier = { factor = 2		NOT = { check_variable = { which = netCultureCost value = 0.50 } } }
-			# 					modifier = { factor = 2		NOT = { check_variable = { which = netCultureCost value = 0.25 } } }
-			# 					modifier = { factor = 2		NOT = { check_variable = { which = netCultureCost value = 0.00 } } }
-			# 					modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 1.25 } }
-			# 					modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 1.50 } }
-			# 					modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 1.75 } }
-			# 					modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 2.00 } }
-			# 				}
-			# 			}
-			# 		}
-			# 	}
-			# }
+			if = { # culture spread
+				limit = {
+					NOT = { has_global_flag = DVEL_no_culture_spread_flag }
+					OR = {
+						has_owner_religion = yes
+						has_owner_secondary_religion = yes
+						has_owner_harmonized_religion = yes
+					}
+					NOT = { nationalism = 1 }
+					NOT = { DVEL_is_right_culture = yes }
+					NOT = { has_province_modifier = DVEL_recently_converted }
+				}
+				owner = { save_event_target_as = DVEL_owner_dummy }
+				#{ province culture math
+					set_variable = { which = netCultureCost		value = 1 }
+					set_variable = { which = netCultureSpeed	value = 1 }
+					#{ global import
+						set_variable = {	which = globalCultureCost	which = owner }
+						set_variable = {	which = globalCultureSpeed	which = owner }
+						change_variable = {	which = netCultureCost		which = globalCultureCost }
+						change_variable = {	which = netCultureSpeed		which = globalCultureSpeed }
+					#}
+					#{ local
+						export_to_variable = { which = localCultureCost		value = modifier:local_culture_conversion_cost }
+						export_to_variable = { which = localCultureSpeed	value = modifier:culture_conversion_time }
+						if = {
+							limit = {
+								any_neighbor_province = {
+									owned_by = event_target:DVEL_owner_dummy
+									DVEL_is_right_culture = yes
+								}
+							}
+							change_variable = { which = localCultureCost value = -0.25 }
+						}
+						change_variable = { which = netCultureCost	which = localCultureCost }
+						change_variable = { which = netCultureSpeed	which = localCultureSpeed }
+					#}
+					multiply_variable = { which = netCultureCost which = netCultureSpeed }
+					# log = "----------DVEL----------"
+					# log = "localCultureCost: [This.localCultureCost.GetValue]"
+					# log = "globalCultureCost: [This.globalCultureCost.GetValue]"
+					# log = "netCultureCost: [This.netCultureCost.GetValue]"
+				#}
+				if = {
+					limit = {
+						NOT = { check_variable = { which = netCultureCost value = 2 } }
+						check_variable = { which = netCultureCost value = -1 }
+					}
+					if = { # neighbor per 250 years
+						limit = {
+							any_neighbor_province = {
+								owned_by = event_target:DVEL_owner_dummy
+								DVEL_is_right_culture = yes
+							}
+						}
+						random_list = {
+							249 = { }
+							1 = {
+								random_neighbor_province = {
+									limit = {
+										owned_by = event_target:DVEL_owner_dummy
+										DVEL_is_right_culture = yes
+									}
+									PREV = { change_culture = PREV }
+								}
+								if = {
+									limit = { has_global_flag = DVEL_debug_mode_flag }
+									REB = { change_variable = { which = cultureSpreads value = 1 } }
+								}
+								modifier = { factor = 0.5	NOT = { tolerance_to_this = 3 } }
+								modifier = { factor = 0.5	NOT = { tolerance_to_this = 0 } }
+								modifier = { factor = 0.25	OR = { is_state = no is_owned_by_trade_company = yes } }
+								modifier = { factor = 2		NOT = { check_variable = { which = netCultureCost value = 0.75 } } }
+								modifier = { factor = 2		NOT = { check_variable = { which = netCultureCost value = 0.50 } } }
+								modifier = { factor = 2		NOT = { check_variable = { which = netCultureCost value = 0.25 } } }
+								modifier = { factor = 2		NOT = { check_variable = { which = netCultureCost value = 0.00 } } }
+								modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 1.25 } }
+								modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 1.50 } }
+								modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 1.75 } }
+								modifier = { factor = 0.5	check_variable = { which = netCultureCost value = 2.00 } }
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 

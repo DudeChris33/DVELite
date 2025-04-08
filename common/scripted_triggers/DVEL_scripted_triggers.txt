@@ -17,22 +17,6 @@ DVEL_is_right_culture = {
 	}
 }
 
-# DVEL_is_right_government = {
-# 	AND = {
-# 		OR = {
-# 			government = monarchy
-# 			government = theocracy
-# 			government = republic
-# 		}
-# 		NOT = {
-# 			# government = native
-# 			# government = tribal
-# 			# DVEL_is_primitive = yes
-# 			is_migratory_tribe = yes
-# 		}
-# 	}
-# }
-
 DVEL_is_primitive = {
 	OR = {
 		primitives = yes
@@ -49,46 +33,47 @@ DVEL_is_primitive = {
 		technology_group = polynesian_tech
 		technology_group = high_american
 
-		# AND = {
-		# 	has_global_flag = DVEL_Anb_flag
-		# 	OR = {
-		# 		technology_group = tech_west_sarhaly
-		# 		technology_group = tech_east_sarhaly
-		# 		technology_group = tech_south_sarhaly
-		# 		technology_group = tech_noruin
-		# 		technology_group = tech_south_aelantiri
-		# 		technology_group = tech_bharbhen
-		# 		technology_group = tech_inyaswarosa
-		# 		technology_group = tech_harafic
-		# 		technology_group = tech_baashidi
+		AND = {
+			has_global_flag = DVEL_Anb_flag
+			ai = yes
+			OR = {
+				technology_group = tech_west_sarhaly
+				technology_group = tech_east_sarhaly
+				technology_group = tech_south_sarhaly
+				technology_group = tech_noruin
+				technology_group = tech_south_aelantiri
+				technology_group = tech_bharbhen
+				technology_group = tech_inyaswarosa
+				technology_group = tech_harafic
+				technology_group = tech_baashidi
 				
-		# 		technology_group = tech_kobold
-		# 		technology_group = tech_darkscale_kobold
-		# 		technology_group = tech_east_kobold
+				technology_group = tech_kobold
+				technology_group = tech_darkscale_kobold
+				technology_group = tech_east_kobold
 				
-		# 		technology_group = tech_firanyan_harpy
-		# 		technology_group = tech_siadunan_harpy
-		# 		technology_group = tech_pezarangi_harpy
-		# 		technology_group = tech_nzeri_harpy
+				technology_group = tech_firanyan_harpy
+				technology_group = tech_siadunan_harpy
+				technology_group = tech_pezarangi_harpy
+				technology_group = tech_nzeri_harpy
 				
-		# 		technology_group = tech_orcish
-		# 		technology_group = tech_black_orcish
-		# 		technology_group = tech_east_orcish
-		# 		technology_group = tech_centaur
+				technology_group = tech_orcish
+				technology_group = tech_black_orcish
+				technology_group = tech_east_orcish
+				technology_group = tech_centaur
 				
-		# 		technology_group = tech_gnollish
-		# 		technology_group = tech_goblin
-		# 		technology_group = tech_exodus_goblin
-		# 		technology_group = tech_cave_goblin
-		# 		technology_group = tech_forest_goblin
-		# 		technology_group = tech_east_cave_goblin
+				technology_group = tech_gnollish
+				technology_group = tech_goblin
+				technology_group = tech_exodus_goblin
+				technology_group = tech_cave_goblin
+				technology_group = tech_forest_goblin
+				technology_group = tech_east_cave_goblin
 
-		# 		technology_group = tech_troll
-		# 		technology_group = tech_ogre
-		# 		technology_group = tech_eastern_ogre
-		# 		technology_group = tech_swamp_troll
-		# 	}
-		# }
+				technology_group = tech_troll
+				technology_group = tech_ogre
+				technology_group = tech_eastern_ogre
+				technology_group = tech_swamp_troll
+			}
+		}
 	}
 }
 
